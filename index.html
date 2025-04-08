@@ -3,18 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
     <h2>Dealer: <span id="dealer-sum"></span></h2>
-    <div id="dealer-cards"></div>
+    <div id="dealer-cards">
+      <img src="./cards/BACK-R.webp" />
+      <img src="./cards/10-C.webp" />
+    </div>
 
     <h2>Player: <span id="player-sum"></span></h2>
     <div id="palyer-cards"></div>
 
     <br />
-    <button id="hit">HIT</button>
-    <button id="stay">STAY</button>
+    <div>
+      <button id="hit">HIT</button>
+      <button id="stay">STAY</button>
+    </div>
 
     <p id="results"></p>
   </body>
