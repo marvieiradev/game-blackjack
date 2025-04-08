@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+body {
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+  background-color: darkcyan;
+}
+
+#dealer-cards img {
+  height: 175px;
+  width: 125px;
+  margin: 1px;
+}
+
+#player-cards {
+  height: 175px;
+  width: 125px;
+  margin: 1px;
+}
+
+button {
+  font-family: "Ubuntu", sans-serif;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+}
+
+button:hover {
+  scale: 105%;
+  opacity: 0.9;
+}
+
+#hit {
+  background-color: blanchedalmond;
+}
+
+#stay {
+  background-color: greenyellow;
+}
