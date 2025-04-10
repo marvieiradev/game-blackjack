@@ -6,6 +6,8 @@ var hidden,
   deck,
   canHit = true;
 
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
 window.onload = function () {
   buildDeck();
   shuffleDeck();
@@ -45,47 +47,41 @@ function shuffleDeck() {
     deck[i] = deck[j];
     deck[j] = temp;
   }
-  console.log(deck);
 }
 
-function startGame() {
+async function startGame() {
   hidden = deck.pop();
   dealerSum += getValue(hidden);
   dealerAceCount += checkAce(hidden);
 
   while (dealerSum < 17) {
-    let cardImg = document.createElement("img");
     let card = deck.pop();
-    cardImg.src = "./cards/" + card + ".webp";
     dealerSum += getValue(card);
     dealerAceCount += checkAce(card);
-    document.getElementById("dealer-cards").append(cardImg);
+    showCards(card, "dealer-cards");
   }
 
   for (let i = 0; i < 2; i++) {
-    let cardImg = document.createElement("img");
     let card = deck.pop();
-    cardImg.src = "./cards/" + card + ".webp";
     playerSum += getValue(card);
     playerAceCount += checkAce(card);
-    document.getElementById("player-cards").append(cardImg);
+    await delay(1000);
+    showCards(card, "player-cards");
   }
-
   document.getElementById("hit").addEventListener("click", hit);
   document.getElementById("stay").addEventListener("click", stay);
 }
 
-function hit() {
+async function hit() {
   if (!canHit) {
     return;
   }
 
-  let cardImg = document.createElement("img");
   let card = deck.pop();
-  cardImg.src = "./cards/" + card + ".webp";
   playerSum += getValue(card);
   playerAceCount += checkAce(card);
-  document.getElementById("player-cards").append(cardImg);
+  await delay(500);
+  showCards(card, "player-cards");
 
   if (reduceAce(playerSum, playerAceCount) > 21) {
     canHit = false;
@@ -112,9 +108,13 @@ function stay() {
     message = "Você Perdeu!";
   }
 
+  document.getElementById("game-over").style.display = "flex";
+  document.getElementById("message").innerText = message;
   document.getElementById("dealer-sum").innerText = dealerSum;
   document.getElementById("player-sum").innerText = playerSum;
-  document.getElementById("results").innerText = message;
+  document.getElementById("bt-restart").addEventListener("click", () => {
+    window.location.reload(true);
+  });
 }
 
 function getValue(card) {
@@ -143,4 +143,22 @@ function reduceAce(playerSum, playerAceCount) {
     playerAceCount -= 1;
   }
   return playerSum;
+}
+
+function showCards(card, player) {
+  let div = document.createElement("div");
+  let back = document.createElement("div");
+  let front = document.createElement("div");
+  let cardImg = document.createElement("img");
+  let cardBack = document.createElement("img");
+
+  div.classList.add("card");
+  cardImg.src = "./cards/" + card + ".webp";
+  cardBack.src = "./cards/BACK-R.webp";
+  front.classList.add("front");
+  back.classList.add("back");
+  back.append(cardBack);
+  front.append(cardImg);
+  div.append(back, front);
+  document.getElementById(player).append(div);
 }
