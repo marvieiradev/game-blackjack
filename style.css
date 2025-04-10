@@ -2,19 +2,94 @@
 body {
   font-family: "Ubuntu", sans-serif;
   text-align: center;
-  background-color: darkcyan;
+  background-image: url("img/bg.jpg");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-#dealer-cards img {
-  height: 175px;
-  width: 125px;
-  margin: 1px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 80px;
 }
 
-#player-cards img {
+h2,
+span {
+  color: white;
+}
+
+#player-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 175px;
+}
+
+#dealer-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 175px;
+}
+
+.player {
+  margin-top: 25px;
+}
+
+.card img,
+#hidden {
   height: 175px;
   width: 125px;
-  margin: 1px;
+  margin: 2px;
+}
+
+.card {
+  height: 175px;
+  width: 125px;
+  margin: 2px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-out;
+  transform: rotateY(180deg);
+  animation: flip-start 1.5s forwards;
+}
+
+.card div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.front {
+  z-index: 1;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+@keyframes flip-start {
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
 }
 
 button {
@@ -31,10 +106,70 @@ button:hover {
   opacity: 0.9;
 }
 
+.btns {
+  display: flex;
+  gap: 20px;
+}
+
 #hit {
   background-color: blanchedalmond;
 }
 
 #stay {
   background-color: greenyellow;
+}
+
+.game-over {
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  top: calc(50% - 100px);
+}
+
+.restart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  background-color: #beedff;
+  border-radius: 10px;
+  border: #007a29 solid 3px;
+  gap: 10px;
+}
+
+#message {
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  color: #075700;
+}
+
+#bt-restart {
+  background-color: #0b89ff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  color: #fff;
+}
+
+@media only screen and (max-device-width: 480px) {
+  container {
+    gap: 20px;
+  }
+  .card,
+  .card img,
+  #hidden {
+    height: 120px;
+    width: 85px;
+  }
+
+  .restart {
+    width: 300px;
+    height: 200px;
+  }
 }
