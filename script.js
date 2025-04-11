@@ -7,6 +7,7 @@ var hidden,
   canHit = true;
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+const click = new Audio("audio/click.mp3");
 
 window.onload = function () {
   buildDeck();
@@ -77,6 +78,7 @@ async function hit() {
     return;
   }
 
+  click.play();
   let card = deck.pop();
   playerSum += getValue(card);
   playerAceCount += checkAce(card);
@@ -95,26 +97,21 @@ function stay() {
   canHit = false;
   document.getElementById("hidden").src = "./cards/" + hidden + ".webp";
 
-  let message = "";
-  if (playerSum > 21) {
-    message = "Você Perdeu!";
-  } else if (dealerSum > 21) {
-    message = "Você Venceu!";
-  } else if (playerSum == dealerSum) {
-    message = "Empate!";
-  } else if (playerSum > dealerSum) {
-    message = "Você Venceu!";
-  } else if (playerSum < dealerSum) {
-    message = "Você Perdeu!";
-  }
+  click.play();
 
-  document.getElementById("game-over").style.display = "flex";
-  document.getElementById("message").innerText = message;
-  document.getElementById("dealer-sum").innerText = dealerSum;
-  document.getElementById("player-sum").innerText = playerSum;
-  document.getElementById("bt-restart").addEventListener("click", () => {
-    window.location.reload(true);
-  });
+  let result = "";
+  if (playerSum > 21) {
+    result = "l";
+  } else if (dealerSum > 21) {
+    result = "w";
+  } else if (playerSum == dealerSum) {
+    result = "d";
+  } else if (playerSum > dealerSum) {
+    result = "w";
+  } else if (playerSum < dealerSum) {
+    result = "l";
+  }
+  gameOver(result, dealerSum, playerSum);
 }
 
 function getValue(card) {
@@ -152,6 +149,9 @@ function showCards(card, player) {
   let cardImg = document.createElement("img");
   let cardBack = document.createElement("img");
 
+  const flip = new Audio("audio/flip.mp3");
+  flip.play();
+
   div.classList.add("card");
   cardImg.src = "./cards/" + card + ".webp";
   cardBack.src = "./cards/BACK-R.webp";
@@ -161,4 +161,39 @@ function showCards(card, player) {
   front.append(cardImg);
   div.append(back, front);
   document.getElementById(player).append(div);
+}
+
+function gameOver(result, dealerSum, playerSum) {
+  let message = "";
+  let messageElement = document.getElementById("message");
+  const win = new Audio("audio/win.mp3");
+  const lose = new Audio("audio/lose.mp3");
+  document.getElementById("game-over").style.display = "flex";
+  document.getElementById("dealer-sum").innerText = dealerSum;
+  document.getElementById("player-sum").innerText = playerSum;
+  document.querySelector(".player-pts").style.opacity = 1;
+  document.querySelector(".dealer-pts").style.opacity = 1;
+
+  switch (result) {
+    case "w":
+      message = "Você Venceu!";
+      messageElement.style.color = "#daa520";
+      win.play();
+      break;
+    case "d":
+      message = "Empate!";
+      messageElement.style.color = "#ffffff";
+      win.play();
+      break;
+    case "l":
+      message = "Você Perdeu!";
+      messageElement.style.color = "#ff000f";
+      lose.play();
+      break;
+  }
+  document.getElementById("message").innerText = message;
+  document.getElementById("bt-restart").addEventListener("click", () => {
+    click.play();
+    window.location.reload(true);
+  });
 }
