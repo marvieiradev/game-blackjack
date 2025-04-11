@@ -13,16 +13,19 @@ body {
   justify-content: center;
 }
 
-.container {
+.container,
+.game {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.game {
   gap: 80px;
 }
 
-h2,
-span {
+h2 {
   color: white;
 }
 
@@ -44,6 +47,15 @@ span {
 
 .player {
   margin-top: 25px;
+}
+
+.player,
+.dealer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
 }
 
 .card img,
@@ -94,11 +106,11 @@ span {
 
 button {
   font-family: "Ubuntu", sans-serif;
-  border: none;
   border-radius: 5px;
   width: 100px;
   height: 50px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -108,15 +120,39 @@ button:hover {
 
 .btns {
   display: flex;
-  gap: 20px;
+  gap: 30px;
+}
+
+.player-pts,
+.dealer-pts {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 40px;
+  border: 2px solid #daa520;
+  background-color: #000;
+  margin: 10px;
+  border-radius: 50px;
 }
 
 #hit {
-  background-color: blanchedalmond;
+  background-color: #000;
+  color: #daa520;
+  border: 2px solid #daa520;
+  font-weight: bold;
 }
 
 #stay {
-  background-color: greenyellow;
+  background-color: #daa520;
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+span {
+  color: #daa520;
 }
 
 .game-over {
@@ -124,7 +160,7 @@ button:hover {
   display: none;
   align-items: center;
   justify-content: center;
-  top: calc(50% - 100px);
+  top: calc(50% - 100px +1px);
 }
 
 .restart {
@@ -134,9 +170,15 @@ button:hover {
   align-items: center;
   width: 400px;
   height: 200px;
-  background-color: #beedff;
+  background: #333333;
+  background: radial-gradient(
+    circle,
+    rgba(51, 51, 51, 1) 0%,
+    rgba(26, 26, 26, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
   border-radius: 10px;
-  border: #007a29 solid 3px;
+  border: #daa520 solid 3px;
   gap: 10px;
 }
 
@@ -144,17 +186,15 @@ button:hover {
   text-align: center;
   font-size: 35px;
   font-weight: 700;
-  color: #075700;
 }
 
 #bt-restart {
-  background-color: #0b89ff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
+  background-color: #daa520;
+  border: 2px solid #000;
+  width: 150px;
   font-family: "Ubuntu", sans-serif;
-  font-size: 15px;
-  color: #fff;
+  font-weight: bold;
+  color: #000;
 }
 
 @media only screen and (max-device-width: 480px) {

@@ -8,21 +8,27 @@
   </head>
   <body>
     <div class="container">
-      <div class="dealer">
-        <h2>Dealer: <span id="dealer-sum"></span></h2>
-        <div id="dealer-cards">
-          <img id="hidden" src="./cards/BACK-R.webp" />
+      <div class="game">
+        <div class="dealer">
+          <div class="dealer-pts">
+            <h2>Dealer: <span id="dealer-sum"></span></h2>
+          </div>
+          <div id="dealer-cards">
+            <img id="hidden" src="./cards/BACK-R.webp" />
+          </div>
         </div>
-      </div>
 
-      <div class="btns">
-        <button id="hit">HIT</button>
-        <button id="stay">STAY</button>
-      </div>
+        <div class="btns">
+          <button id="hit">+ 1</button>
+          <button id="stay">PARAR</button>
+        </div>
 
-      <div class="player">
-        <div id="player-cards"></div>
-        <h2>Player: <span id="player-sum"></span></h2>
+        <div class="player">
+          <div id="player-cards"></div>
+          <div class="player-pts">
+            <h2>Player: <span id="player-sum"></span></h2>
+          </div>
+        </div>
       </div>
       <div class="game-over" id="game-over">
         <div class="restart">
